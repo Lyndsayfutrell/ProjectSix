@@ -51,7 +51,6 @@ function addPhraseToDisplay () {
             ul.appendChild(li);
 
         }
-
     };
 }
 
@@ -70,11 +69,12 @@ function checkWin () {
 }
 
 buttonReset.addEventListener ('click', (e) => {
+    getRandomPhrase();
+    addPhraseToDisplay();
     overlay.style.display = "none";
     overlay.classList.remove('win');
     overlay.classList.remove('lose');
-    getRandomPhrase();
-    addPhraseToDisplay();
+
 });
 
 function checkLetter (button) {
