@@ -17,25 +17,15 @@ const phrases =
 'good vibes only'];
 const randomPhrase = getRandomPhrase();
 const ul = document.getElementById('phrase');
+const hearts = document.querySelectorAll('img');
+const letter = document.getElementsByClassName('letter');
+
 
 
 
 
 // Functions 
 
-// function createLI(text) {
-//     function createElement(elementName, property, value) {
-//       const element = document.createElement(elementName);  
-//       element[property] = value; 
-//       return element;
-//     }
-// }
-
-// function appendToUL(elementName, property, value) {
-//     const element = createElement(elementName, property, value);     
-//     ul.appendChild(element); 
-//     return element;
-//   }
 
 function getRandomPhrase () {
     const number = phrases.length;
@@ -72,6 +62,27 @@ buttonReset.addEventListener ('click', (e) => {
     addPhraseToDisplay();
 });
 
+function checkLetter (button) {
+    let match = null;
+    for (i = 0; i < letter.length; i++) {
+        if (letter[i].textContent === button) {
+        match = button;
+        letter[i].className = 'show'; 
+        }
+        };
+    return match;
+}
 
+qwerty.addEventListener('click', e => {
+    if (e.target.tagName === 'BUTTON' && e.target.className !== 'chosen') {
+        const match = checkLetter(e.target.textContent);
+        e.target.className = 'chosen';
 
+        if (match === null) {
+            hearts[missed].src = 'images/lostHeart.png';
+            missed ++;
+            console.log(missed);
+        }
+    }
+});
 
