@@ -19,6 +19,9 @@ const randomPhrase = getRandomPhrase();
 const ul = document.getElementById('phrase');
 const hearts = document.querySelectorAll('img');
 const letter = document.getElementsByClassName('letter');
+const overlay = document.getElementById('overlay');
+const h2 = document.querySelector('.title');
+
 
 
 
@@ -55,8 +58,21 @@ function addPhraseToDisplay () {
     };
 }
 
+function checkWin () {
+    const hidden = document.getElementsByClassName('letter');
+    const show = document.getElementsByClassName('show');
+    if (hidden.length === show.length) {
+        h2.innerHTML = 'YOU WIN!!'
+        overlay.classList.add('win');
+        overlay.style.display = 'flex';
+        buttonReset.textContent = 'reset game';
+        resetGame();
+
+    }
+
+}
+
 buttonReset.addEventListener ('click', (e) => {
-    const overlay = document.getElementById('overlay');
     overlay.style.display = "none";
     getRandomPhrase();
     addPhraseToDisplay();
@@ -67,22 +83,33 @@ function checkLetter (button) {
     for (i = 0; i < letter.length; i++) {
         if (letter[i].textContent === button) {
         match = button;
-        letter[i].className = 'show'; 
+        letter[i].classList.add('show')
         }
         };
     return match;
 }
 
+function checkLoss () {
+    if (missed > 4) {
+        h2.innerHTML = 'GAME OVER'
+        overlay.classList.add('lose');
+        overlay.style.display = 'flex';
+        buttonReset.textContent = 'play again';
+        resetGame();
+    };
+}
+
 qwerty.addEventListener('click', e => {
     if (e.target.tagName === 'BUTTON' && e.target.className !== 'chosen') {
         const match = checkLetter(e.target.textContent);
-        e.target.className = 'chosen';
+        e.target.classList.add('chosen');
 
         if (match === null) {
             hearts[missed].src = 'images/lostHeart.png';
-            missed ++;
-            console.log(missed);
+            missed ++;;
+            checkLoss();
         }
     }
+    checkWin();
 });
 
