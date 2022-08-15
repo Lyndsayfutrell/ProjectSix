@@ -15,7 +15,7 @@ const phrases =
 'let it go',
 'never give up',
 'good vibes only'];
-const randomPhrase = getRandomPhrase();
+let randomPhrase = '';
 const ul = document.getElementById('phrase');
 const hearts = document.querySelectorAll('img');
 const letter = document.getElementsByClassName('letter');
@@ -30,7 +30,7 @@ const img = document.querySelectorAll('IMG');
 function getRandomPhrase () {
     const number = phrases.length;
     const randomNumber = Math.floor(Math.random() * number);
-    const randomPhrase = phrases[randomNumber];
+    randomPhrase = phrases[randomNumber];
     return randomPhrase;
 }
 
