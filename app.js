@@ -21,10 +21,7 @@ const hearts = document.querySelectorAll('img');
 const letter = document.getElementsByClassName('letter');
 const overlay = document.getElementById('overlay');
 const h2 = document.querySelector('.title');
-
-
-
-
+const img = document.querySelectorAll('IMG');
 
 
 // Functions 
@@ -74,6 +71,8 @@ function checkWin () {
 
 buttonReset.addEventListener ('click', (e) => {
     overlay.style.display = "none";
+    overlay.classList.remove('win');
+    overlay.classList.remove('lose');
     getRandomPhrase();
     addPhraseToDisplay();
 });
@@ -99,10 +98,23 @@ function checkLoss () {
     };
 }
 
+function resetGame () {
+    ul.innerHTML = '';
+    const button = document.querySelectorAll('button');
+    for (i = 0; i < button.length; i++) {
+        button[i].classList.remove('chosen');
+    }
+    missed = 0;
+    for (i= 0; i<hearts.length; i++) {
+        img[i].src = 'images/liveHeart.png';
+    }
+}
+
 qwerty.addEventListener('click', e => {
     if (e.target.tagName === 'BUTTON' && e.target.className !== 'chosen') {
         const match = checkLetter(e.target.textContent);
         e.target.classList.add('chosen');
+        checkWin();
 
         if (match === null) {
             hearts[missed].src = 'images/lostHeart.png';
@@ -110,6 +122,5 @@ qwerty.addEventListener('click', e => {
             checkLoss();
         }
     }
-    checkWin();
 });
 
